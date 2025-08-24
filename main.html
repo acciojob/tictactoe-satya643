@@ -54,8 +54,8 @@
   <div class="container">
     <!-- Player Input Section -->
     <div id="input-section">
-      <input type="text" id="player-1" placeholder="Enter Player 1 name">
-      <input type="text" id="player-2" placeholder="Enter Player 2 name">
+      <input type="text" id="player1" placeholder="Enter Player 1 name">
+      <input type="text" id="player2" placeholder="Enter Player 2 name">
       <button id="submit">Submit</button>
     </div>
 
@@ -74,35 +74,31 @@
     let player1 = "";
     let player2 = "";
     let currentPlayer = "";
-    let currentSymbol = "X";
+    let currentSymbol = "x";
     let cells = [];
 
-    // Winning combinations
     const winPatterns = [
       [1,2,3],[4,5,6],[7,8,9], // rows
-      [1,4,7],[2,5,8],[3,6,9], // cols
+      [1,4,7],[2,5,8],[3,6,9], // columns
       [1,5,9],[3,5,7]          // diagonals
     ];
 
     submitBtn.addEventListener("click", () => {
-      player1 = document.getElementById("player-1").value.trim();
-      player2 = document.getElementById("player-2").value.trim();
+      player1 = document.getElementById("player1").value.trim();
+      player2 = document.getElementById("player2").value.trim();
 
       if (!player1 || !player2) {
         alert("Please enter names for both players!");
         return;
       }
 
-      // Hide input section
       document.getElementById("input-section").style.display = "none";
-
-      // Show game
       title.style.display = "block";
       board.style.display = "grid";
       currentPlayer = player1;
       messageDiv.textContent = `${currentPlayer}, you're up!`;
 
-      // Create cells
+      // Create 9 cells
       for (let i = 1; i <= 9; i++) {
         const cell = document.createElement("div");
         cell.classList.add("cell");
@@ -119,17 +115,17 @@
       cells[cell.id] = currentSymbol;
 
       if (checkWin(currentSymbol)) {
-        messageDiv.textContent = `${currentPlayer}, congratulations you won! 🎉`;
+        messageDiv.textContent = `${currentPlayer} congratulations you won!`;
         endGame();
         return;
       }
 
       // Switch turn
-      if (currentSymbol === "X") {
-        currentSymbol = "O";
+      if (currentSymbol === "x") {
+        currentSymbol = "o";
         currentPlayer = player2;
       } else {
-        currentSymbol = "X";
+        currentSymbol = "x";
         currentPlayer = player1;
       }
       messageDiv.textContent = `${currentPlayer}, you're up!`;
